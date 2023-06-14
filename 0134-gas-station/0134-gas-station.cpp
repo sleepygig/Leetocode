@@ -15,8 +15,9 @@ public:
          t+=v[i];
          if(t<0) 
          {
+            t=0;
          ans=i+1;
-          t=0; 
+          
          }
 
        }

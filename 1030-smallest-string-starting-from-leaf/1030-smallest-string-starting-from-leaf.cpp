@@ -11,30 +11,26 @@
  */
 class Solution {
 public:
-bool isleaf(TreeNode* root) {
-    return (root->left == NULL && root->right == NULL);
-}
-void fs(TreeNode* root,vector<vector<int>>&ans,vector<int> s)
+ void solve(TreeNode* root,string s,vector<string> &v)
     {
-        if(!root) return ;
-        if(isleaf(root)){s.push_back((root->val)); reverse(s.begin(),s.end());
-        ans.push_back(s); return ;}
-        s.push_back(root->val);
-        fs(root->left,ans,s);
-        fs(root->right,ans,s);       
-    }
-      string smallestFromLeaf(TreeNode* root) {
-        vector<vector<int>>ans;
-        vector<int>s;
-        fs(root,ans,s);
-        sort(ans.begin(),ans.end());
-        vector<int>a =ans[0];
-        string st;
-        for(int i=0;i<a.size();i++)
+        if(root==nullptr)
+            return ;
+        s+=(char)(root->val+97);
+        if(!root->left&&!root->right)
         {
-            st=st+char(a[i]+'a');   
+            string temp=s;
+            reverse(temp.begin(),temp.end());
+            v.push_back(temp);
         }
-        // reverse(st.begin(),st.end());
-        return st;
-      }
+        solve(root->left,s,v);
+        solve(root->right,s,v);
+    }
+    string smallestFromLeaf(TreeNode* root) {
+        vector<string> v;
+        string s="";
+        solve(root,s,v);
+        sort(v.begin(),v.end());
+        return v[0];
+    }  
+    
 };

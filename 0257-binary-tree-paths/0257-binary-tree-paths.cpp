@@ -17,7 +17,9 @@ public:
     void fs(TreeNode* root,vector<vector<int>>&ans,vector<int> s)
     {
         if(!root) return ;
-        if(isleaf(root)){s.push_back((root->val)); ans.push_back(s);  s.pop_back(); return ;}
+        if(isleaf(root)){s.push_back((root->val)); ans.push_back(s); 
+        //  s.pop_back();
+         return ;}
         s.push_back(root->val);
         fs(root->left,ans,s);
         fs(root->right,ans,s);

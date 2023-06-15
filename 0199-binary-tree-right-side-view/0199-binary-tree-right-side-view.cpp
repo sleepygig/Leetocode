@@ -11,26 +11,23 @@
  */
 class Solution {
 public:
+     void rv(TreeNode* root,int row,map<int,int>&mp)
+    {
+        if(root==NULL) return ;
+        if(mp.find(row)==mp.end()) mp[row]=root->val;
+        if(root->right) rv(root->right,row+1,mp);
+        if(root->left)rv(root->left,row+1,mp);
+    }
    vector<int> rightSideView(TreeNode* root) {
     if(root==NULL) return {};
-        map<int,int>mp;
-        queue<pair<int ,TreeNode*>>q;
-        q.push({0,root});
-        while(q.size())
-        {
-            TreeNode* tpnode=q.front().second;
-            int row=q.front().first;
-            q.pop();
-            if(mp.find(row)==mp.end()) mp[row]=tpnode->val;
-            if(tpnode->right) q.push({row+1,tpnode->right});
-            if(tpnode->left)q.push({row+1,tpnode->left});
-        }
-        vector<int>ans;
-        for(auto c:mp)
-        {ans.push_back(c.second);}
-        // for(auto c:ans)
-        // {cout<<c<<" ";}
-        return ans;
+    
+    int row=0;
+    map<int,int>mp;
+    rv(root,row,mp);
+    vector<int>ans;
+    for(auto c:mp)
+    {ans.push_back(c.second);}  
+    return ans;  
     }
  
 };

@@ -29,7 +29,7 @@ public:
       treetoGr(root->right,adj);
   }
 }
-void bfs(map<int ,vector<int>>&adj,vector<int>&vis,int src,int &ans)
+void bfs(map<int ,vector<int>>&adj,map<int,int>&vis,int src,int &ans)
 {
     queue<pair<int,int>>q;   //node //lvl
     q.push({src,0});
@@ -48,7 +48,7 @@ void bfs(map<int ,vector<int>>&adj,vector<int>&vis,int src,int &ans)
         map<int,vector<int>>adj;
         treetoGr(root,adj);
         int ans=INT_FAST32_MIN;
-        vector<int>vis(1e5+1,0);
+        map<int,int>vis;
         bfs(adj,vis,start,ans);
         // deb(ans);
     return ans;

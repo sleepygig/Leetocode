@@ -11,19 +11,27 @@
  */
 class Solution {
 public:
-   int a(TreeNode * root,int &y)
-{
-    if(!root) return 0;
-    if(root->left)y=y+1;
-    if(root->right)y=y+1;
-    a(root->left,y);
-    a(root->right,y);
-    // deb(y);
-    return y;
-    
-}
- int countNodes(TreeNode* root) {
-    int y=1;
-      return a(root,y);  
+int countNodes(TreeNode* root) {
+        if(root==NULL)return 0;
+        TreeNode* node=root->left;
+        TreeNode* node2=root->right;
+        int h=1;
+        bool full=false;
+        while(1){
+            if(node==NULL && node2==NULL){
+                full=true;break;
+            }
+            if(node==NULL || node2==NULL){
+                break;
+            }
+            node=node->left,node2=node2->right;
+            h++;
+        }
+        if(full){
+            return pow(2,h)-1;
+        }
+        else{
+            return 1+countNodes(root->left)+countNodes(root->right);
+        }
     }
 };

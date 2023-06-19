@@ -8,6 +8,7 @@ int dc[8] = {0, 1, 0, -1, -1, 1, -1, 1};
      int m=board.size();
       int n=board[0].size();
     vis[sr][sc]=1;
+    // print2d(vis,m,n);
     if(pos==word.size()) return true;
     for(int i=0;i<4;i++)
     {
@@ -17,13 +18,12 @@ int dc[8] = {0, 1, 0, -1, -1, 1, -1, 1};
        {
         if(!vis[nr][nc] and board[nr][nc]==word[pos])
         {
-          //  print2d(vis,m,n);
-          if(dfs(vis,word,nr,nc,pos+1,board)) 
-          {vis[nr][nc]=0;
-          return true;}
+           
+          if(dfs(vis,word,nr,nc,pos+1,board)){ vis[nr][nc]=0;return true; }  //agge match hua ans 
         }
        }
     }
+    // sr ,sc se dfs lgya lekin next char match hei nahi hua 
     vis[sr][sc]=0;
     return false;
 
@@ -39,11 +39,11 @@ int dc[8] = {0, 1, 0, -1, -1, 1, -1, 1};
           {
               if(vis[i][j]==0 and word[0]==board[i][j])
               {
-               
                 y=y or dfs(vis,word,i,j,1,board);
               }
           }
         }
+        // deb(y);
         return y;
         
     }

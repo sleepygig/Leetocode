@@ -14,16 +14,14 @@ public:
  bool isleaf(TreeNode* root) {
     return (root->left == NULL && root->right == NULL);
 }
-    void fs(TreeNode* root,vector<vector<int>>&ans,vector<int> s)
+    void fs(TreeNode* root,vector<vector<int>>&ans,vector<int> &s)
     {
         if(!root) return ;
-        if(isleaf(root)){s.push_back((root->val)); ans.push_back(s); 
-        //  s.pop_back();
-         return ;}
-        s.push_back(root->val);
-        fs(root->left,ans,s);
-        fs(root->right,ans,s);
-        // s.pop_back();
+          s.push_back(root->val);
+        if(isleaf(root)) ans.push_back(s); 
+        if(root->left)fs(root->left,ans,s);
+        if(root->right)fs(root->right,ans,s);
+        s.pop_back();
        
     }
      vector<string> binaryTreePaths(TreeNode* root) {

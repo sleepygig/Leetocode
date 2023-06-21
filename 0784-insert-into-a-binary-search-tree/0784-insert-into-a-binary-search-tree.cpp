@@ -10,21 +10,27 @@
  * };
  */
 class Solution {
-public:
-   TreeNode* lgega(TreeNode* &root,int &val)
-    {   TreeNode* a;
-          if (!root) {
-        root = new TreeNode(val);  // Create a new node
+public: 
+TreeNode* fs(TreeNode* &root,int val)
+{
+    if(!root){
+        root=new TreeNode(val);
         return root;
     }
-      
-        a=(root->val>val) ? lgega(root->left,val): lgega(root->right,val);
-       
-        return a; 
-    }
-
-    TreeNode* insertIntoBST(TreeNode* root, int val) {
-        lgega(root,val);
+    TreeNode* a;
+   if(root->val>val)
+   {
+      a=fs(root->left,val);
+   }
+   else
+   {
+     a=fs(root->right,val);
+   }  
+   return a;
+}
+      TreeNode* insertIntoBST(TreeNode* root, int val) {
+        fs (root,val);
         return root;
+        
     }
 };

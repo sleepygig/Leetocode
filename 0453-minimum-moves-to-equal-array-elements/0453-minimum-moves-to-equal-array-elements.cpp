@@ -1,16 +1,15 @@
 class Solution {
 public:
     int minMoves(vector<int>& nums) {
-      int minValue = *std::min_element(nums.begin(), nums.end());
-
-    // Step 2: Calculate the differences and sum them up
-    int moves = 0;
-    for (int num : nums) {
-        moves += num - minValue;
-    }
-
-    // Step 3: Return the total number of moves
-    return moves;
-    
+        int n=nums.size();
+        int mn=INT32_MAX   ;
+        int sum=0;
+      for(int i=0;i<n;i++)
+      {
+          sum+=nums[i];
+          mn=min(nums[i],mn);
+      }
+      int ans=sum - mn * n ;
+      return ans;
     }
 };

@@ -1,14 +1,14 @@
 class Solution {
 public:
 
-long long  cstnikal(vector<int>& nums, vector<int>& cost,long long mid )
+long long  cstnikal(vector<int>& nums, vector<int>& cost,long long  mid )
 {
   #define ll long long 
-  ll n=nums.size();
+  int n=nums.size();
   ll sum=0;
   for(int i=0;i<n;i++)
   {
-      sum+=(abs((ll)mid-nums[i]))*(cost[i])*1LL;
+      sum+=(abs(mid-nums[i]))*(cost[i]);
   }
   return sum;
 }
@@ -25,22 +25,19 @@ long long  cstnikal(vector<int>& nums, vector<int>& cost,long long mid )
         ll lo=mn;
         ll hi=mx;
         ll mid;
-        while(lo<=hi)
+        while(hi-lo>1)
         {
-          mid=lo+(hi-lo)/2;
+          mid=(lo+hi)>>1;
           if(cstnikal(nums,cost,mid)<cstnikal(nums,cost,mid+1))
           {
-            hi=mid-1;
+            hi=mid;
           }
           else 
           {
-            lo=mid+1;
+            lo=mid;
           }
-          // deb(lo);
-          // deb(hi);
-          // deb(mid);
         }
-        ll ans=cstnikal(nums,cost,lo);
+        ll ans=(cstnikal(nums,cost,lo)>=cstnikal(nums,cost,hi)) ? cstnikal(nums,cost,hi): cstnikal(nums,cost,lo);
         // deb(ans);
         return ans;
         

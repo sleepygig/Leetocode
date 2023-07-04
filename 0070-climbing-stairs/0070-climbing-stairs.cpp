@@ -1,13 +1,18 @@
 class Solution {
 public:
-int fs(int n ,map<int,int>&dp)
+    int totst(map<int,int>&dp,int n)
 {
-    if(n==1 or n==0) return 1;
+    if(n==0 or n==1) return 1;
     if(dp[n]) return dp[n];
-    return dp[n]=fs(n-1,dp)+fs(n-2,dp);
+    int l=totst(dp,n-1);
+    int r=totst(dp,n-2);
+    return dp[n]=l+r;
+
 }
-    int climbStairs(int n) {
-        map<int,int>dp;
-        return fs(n,dp);
+ int climbStairs(int n) {
+       
+    map<int,int>dp;
+    return totst(dp,n);
+
     }
 };

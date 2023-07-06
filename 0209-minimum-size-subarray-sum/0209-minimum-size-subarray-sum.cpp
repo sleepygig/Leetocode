@@ -7,7 +7,7 @@ public:
     int sum = 0;
     int ans = INT_MAX;
 
-    while (j < n && i<n) {
+    while (j < n) {
         sum += nums[j];
         if (sum < target) {
             j++;

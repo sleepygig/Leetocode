@@ -1,35 +1,57 @@
 class Solution {
 public:
      int maxConsecutiveAnswers(string answerKey, int k) {
-    int n = answerKey.size();
-    int maxConsecutive = 0;
-    int maxCount = 0;
-    int start = 0;
-    int countT = 0;
-    int countF = 0;
-
-    for (int end = 0; end < n; end++) {
-        if (answerKey[end] == 'T') {
-            countT++;
-        } else {
-            countF++;
-        }
-
-        // Check if the current window violates the condition
-        // (number of changes used up)
-        while (min(countT, countF) > k) {
-            if (answerKey[start] == 'T') {
-                countT--;
-            } else {
-                countF--;
+        int i=0;
+        int j=i;
+        int n=answerKey.size();
+        int ans =-2;
+        int cT=0;
+        int cF=0;
+        while(j<n)
+        {
+            if(answerKey[j]=='F')
+            {
+                ans=max(ans,j-i+1); 
+                j++;
             }
-            start++;
+            else 
+            {
+                cT++;
+                while(cT>k)    
+                {
+          
+                    if(answerKey[i]=='T') cT--;
+                    i++;
+                    ans=max(ans,j-i+1); 
+                }            
+                j++;
+            }
+
         }
-
-        maxConsecutive = max(maxConsecutive, end - start + 1);
-    }
-
-    return maxConsecutive;
-}
-
+        ans=max(ans,j-i); 
+         i=0;
+         j=i;
+             while(j<n)
+        {
+            if(answerKey[j]=='T')
+            {
+                ans=max(ans,j-i+1); 
+                j++;
+            }
+            else 
+            {
+                cF++;
+             
+                while(cF>k)    
+                { 
+                    if(answerKey[i]=='F') cF--;
+                    i++;
+                    ans=max(ans,j-i+1); 
+                }            
+                j++;
+            }
+        }
+        ans=max(ans,j-i); 
+        return ans ;
+     }
 };

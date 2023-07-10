@@ -16,7 +16,7 @@ public:
         int l=minDepth(root->left);
         int r=minDepth(root->right); 
         if(root->left && root->right){
-            return min(l+1, r+1);
+            return min(l, r)+1;
         }
         else 
         {

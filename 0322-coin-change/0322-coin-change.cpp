@@ -6,14 +6,11 @@ public:
         vector<vector<int>>dp(n+1,vector<int>(a+1,INT16_MAX));
         for(int i=0;i<=n;i++)
         {
-            for(int j=0;j<=a;j++)
-            {
-                if(j==0)
-                {
-                    dp[i][j]=0;
-                }
+           
+                    dp[i][0]=0;
+                
             }
-        }
+        
             for(int i=1;i<=n;i++)
         {
             for(int j=0;j<=a;j++)

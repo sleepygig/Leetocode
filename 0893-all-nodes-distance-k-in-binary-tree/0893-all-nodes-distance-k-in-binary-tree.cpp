@@ -9,25 +9,28 @@
  */
 class Solution {
 public:
- void treetoGr(TreeNode* root,TreeNode * target,map<int ,vector<int>>&adj,int &y)
-{
-  if(!root) return ;
-  int par=root->val;
-  if(root->left) {
-    int l=root->left->val;
-    adj[l].push_back(par);
-    adj[par].push_back(l);
-      treetoGr(root->left,target,adj,y);
-  }
-  
-  if(root->right) {
-    int r=root->right->val;
-    adj[r].push_back(par);
-    adj[par].push_back(r);
-      treetoGr(root->right,target,adj,y);
-  }
-}
-void bfs(map<int ,vector<int>>&adj,vector<int>&vis,int k,int src,vector<int>&ans)
+void TtG(TreeNode* root, map<int ,vector<int>>&adj)
+    {
+        if(!root) return ;
+        if(root->left)
+        {
+            int par=root->val;
+            int ch=root->left->val;
+            adj[par].push_back(ch);
+            adj[ch].push_back(par);
+            TtG(root->left,adj);
+        }
+         if(root->right)
+        {
+            int par=root->val;
+            int ch=root->right->val;
+            adj[par].push_back(ch);
+            adj[ch].push_back(par);
+            TtG(root->right,adj);
+        }
+        return ;
+    }
+   void bfs(map<int ,vector<int>>&adj,vector<int>&vis,int k,int src,vector<int>&ans)
 {
     queue<pair<int,int>>q;   //node //lvl
     q.push({src,0});
@@ -42,20 +45,14 @@ void bfs(map<int ,vector<int>>&adj,vector<int>&vis,int k,int src,vector<int>&ans
         {if(!vis[c]) q.push({c,lv+1});}
     }
 }
-   vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-    int y=0;
-    map<int,vector<int>>adj;
-    treetoGr(root,target,adj,y);
-    for(auto c:adj)
-    {cout<<c.first<<" ";
-    for(auto x:c.second)
-    {cout<<x<<" ";}
-    cout<<endl;}
-    vector<int>vis(501,0);
-    vector<int>ans;
-    bfs(adj,vis,k,target->val,ans);
-    return ans;
-    for(auto c:ans){cout<<c<<" ";}
-
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) 
+    {
+        map<int ,vector<int>>adj;
+        TtG(root,adj);
+        int src=target->val; 
+        vector<int>vis(501,0);
+         vector<int>ans;
+    bfs(adj,vis,k,src,ans);
+    return ans;     
     }
 };

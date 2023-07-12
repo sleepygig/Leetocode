@@ -1,5 +1,13 @@
+auto fastio=[](){
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
 class Solution {
+    
 public:
+  
      int longestPalindromeSubseq(string s) {
         int x=s.size();
         

@@ -6,22 +6,22 @@ public:
         int hi=n-1;
         int mid;
         int ans=INT_MAX;
-        while(hi>=lo)
+        while(hi-lo>1)
         {
             mid=(hi+lo)>>1;
             if(nums[lo]<=nums[mid])
             {
                 ans=min(ans,nums[lo]);  //left issorted
-                lo=mid+1; 
+                lo=mid; 
             }
             else if(nums[mid]<nums[hi]) 
             {
                 ans=min(ans,nums[mid]);
-                hi=mid-1;
+                hi=mid;
                 
             }
         }
-        return ans;
+        return min({nums[lo],nums[hi],ans});
         
     }
 };

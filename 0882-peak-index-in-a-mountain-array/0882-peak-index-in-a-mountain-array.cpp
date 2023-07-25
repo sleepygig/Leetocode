@@ -14,7 +14,7 @@ public:
             // deb(mid);
                return mid ;
            }
-           else if(arr[mid]<=arr[mid+1])
+           else if(arr[mid]<arr[mid+1])
            {
                l=mid+1;
            }

@@ -12,28 +12,34 @@
 class Solution {
 public:
 #define ll long long 
-void fs(TreeNode* root, ll s, unordered_map<ll, ll>& mp, ll k, ll& cnt) {
-    if (root == nullptr) return;
+  void  fs(TreeNode* root,ll s,unordered_map<ll,ll>&mp,ll k,ll &cnt)
+    {
 
-    // Calculate the current sum from the root to the current node
-    s += root->val;
-
-    // Check if (s - k) exists in the map, which means there is a valid path
-    // from some ancestor node to the current node that sums up to k.
-    if (mp.find(s - k) != mp.end()) {
+      if(root==NULL) return ;
+        if(root->left==NULL and root->right==NULL)
+        {
+            s+=root->val;
+        if (mp.find(s - k) != mp.end()) {
         cnt += mp[s - k];
+   
     }
 
-    // Increment the frequency of the current sum in the map
-    mp[s]++;
 
-    // Traverse left and right subtrees
-    fs(root->left, s, mp, k, cnt);
-    fs(root->right, s, mp, k, cnt);
 
-    // Decrement the frequency as we backtrack
-    mp[s]--;
-}
+         return ;
+        }
+        s+=root->val;
+        if (mp.find(s - k) != mp.end()) {
+        cnt += mp[s - k];
+    }
+        mp[s]++;
+         if(root->left) fs(root->left,s,mp,k,cnt);
+          if (root->right) fs(root->right,s,mp,k,cnt);
+          mp[s]--;
+        //   s-=root->data;
+          return ;
+      
+    }
  int pathSum(TreeNode* root, int targetSum) {
     ll s=0;
     unordered_map<ll,ll>mp;

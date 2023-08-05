@@ -10,21 +10,25 @@
  */
 class Solution {
 public:
-    ListNode* deleteDuplicates(ListNode* head) {
-    auto ans=head;
-    if(head==NULL) return head;
-        while(head->next!=NULL)
+         void fs(ListNode *head)
         {
+            if(head==NULL or head->next ==NULL) return;
             if(head->val==head->next->val)
             {
-                head->next=head->next->next;
+                head->next=head->next->next; //skipping
+                fs(head);
             }
             else 
             {
                 head=head->next;
+                fs(head);
             }
         }
-        return ans;
+
+  ListNode* deleteDuplicates(ListNode* head) {
+        auto a=head;
+        fs(head);
+        return a;
         
     }
 };

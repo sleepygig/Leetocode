@@ -19,7 +19,7 @@ bool isPalindromic(const std::string& str, int l,int r) {
 
     return true;
 }
-int fs(string str,int i,int j,int n,vector<vector<string>>&ans,vector<string>&tp)
+void fs(string str,int i,int j,int n,vector<vector<string>>&ans,vector<string>&tp)
 		{
 			if(j==n-1 )
 			{
@@ -28,25 +28,23 @@ int fs(string str,int i,int j,int n,vector<vector<string>>&ans,vector<string>&tp
 					tp.push_back(str.substr(i, j - i + 1));
 					ans.push_back(tp);
 					tp.pop_back	();
-					return 1;
+					return ;
 				}
-				else return 0;
+				else return ;
 			}
 			if(isPalindromic(str,i,j))
 			{
 				tp.push_back(str.substr(i, j - i + 1));
-				int l=fs(str,j+1,j+1,n,ans,tp);
+				fs(str,j+1,j+1,n,ans,tp);
 				tp.pop_back	();
-				int r=fs(str,i,j+1,n,ans,tp);    //lgaa rha
-				return l+r;
+				fs(str,i,j+1,n,ans,tp);    //lgaa rha
+			
 				
 			}
 			else{
-				int l=fs(str,i,j+1,n,ans,tp);
-				int r=0;
-				return l+r;
+				fs(str,i,j+1,n,ans,tp);	
 			}
-			return 0;
+			
 			
 		}
 

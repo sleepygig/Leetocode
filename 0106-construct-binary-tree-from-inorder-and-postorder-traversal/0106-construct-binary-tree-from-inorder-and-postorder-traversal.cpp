@@ -11,26 +11,24 @@
  */
 class Solution {
 public:
-TreeNode* ans(vector<int>& postorder, vector<int>& inorder,int startpos,int endpos,int startin
-   ,int endin,map<int,int>&indxmp)
-   {
-    if(startin>endin or startpos>endpos) return NULL;
-    int  vals=postorder[endpos];   //root ki value 
-    TreeNode * root=new TreeNode(vals);
-    int rootindx=indxmp[vals];
-    int lstsze=rootindx-startin;
-    int rstsze=endin-rootindx;
-    root->right=ans(postorder,inorder,startpos+lstsze,endpos-1,rootindx+1,endin,indxmp);
-    root->left=ans(postorder,inorder,startpos,startpos+lstsze-1,startin,rootindx-1,indxmp);
-    return root; 
-   } 
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        map<int,int>indxmp;
-      int n=inorder.size();
-      for(int i=0;i<n;i++)
-      {
-            indxmp[inorder[i]]=i;
-      } 
-      return ans(postorder,inorder,0,n-1,0,n-1,indxmp);  
+  TreeNode *fs(vector<int> &inorder, vector<int> &postorder, int si, int ei, int sp, int ep,
+             unordered_map<int, int> &hm) {
+    if (si > ei || sp > ep) return NULL;
+    TreeNode *root = new TreeNode(postorder[ep]);
+    int ri = hm[postorder[ep]];
+    int nl = ri - si;
+    root->left = fs(inorder, postorder, si, ri - 1, sp, sp + nl - 1, hm);
+    root->right = fs(inorder, postorder, ri + 1, ei, sp + nl, ep - 1, hm);
+    return root;
+}
+
+TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
+    unordered_map<int, int> hm;
+    for (int i = 0; i < inorder.size(); i++) {
+        hm[inorder[i]] = i;
     }
+    int n = inorder.size();
+    return fs(inorder, postorder, 0, n - 1, 0, n - 1, hm);
+}
+
 };

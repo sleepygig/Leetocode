@@ -11,16 +11,11 @@ public:
             i+=st.top().second;
             st.pop();
         }
-        if(st.size()==0) 
-        {
-             st.push({price,i});
-            return i;
-        }
-        if(st.top().first>price){
-            st.push({price,i});
-            return i;
-        }
-        return 0;
+       
+        if(st.size()==0 or st.top().first>price)  st.push({price,i});
+   
+        
+        return i;
     }
 };
 

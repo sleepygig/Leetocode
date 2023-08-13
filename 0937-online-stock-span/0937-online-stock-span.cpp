@@ -3,29 +3,24 @@ public:
     StockSpanner() {
         
     }
-   stack<pair<int,int>>s;
-   
+    stack<pair<int,int>>st;
     int next(int price) {
-      
-           int cnt =1;
-        while(s.size() and s.top().first<=price)
+        int i=1;
+        while(st.size() and price>=st.top().first)
         {
-            cnt+=s.top().second;
-            s.pop();
+            i+=st.top().second;
+            st.pop();
         }
-        if(s.size()==0)
+        if(st.size()==0) 
         {
-               s.push({price,cnt});
-            return cnt;
+             st.push({price,i});
+            return i;
         }
-
-        else if(s.top().first>price) 
-        {
-               s.push({price,cnt});
-            return cnt;
+        if(st.top().first>price){
+            st.push({price,i});
+            return i;
         }
-  
-        return 9;
+        return 0;
     }
 };
 

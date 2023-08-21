@@ -1,20 +1,23 @@
 class Solution {
 public:
-	long long f(int i,vector<vector<int>>& r, vector<int>& st,int m,vector<long long>& dp){
-		if(i>=m) return 0;
-		if(dp[i]!=-1) return dp[i];
-		int ind=lower_bound(st.begin(),st.end(),r[i][1])-st.begin();
-		long long pick=(r[i][1]-r[i][0]+r[i][2])+f(ind,r,st,m,dp);
-		long long notpick=f(i+1,r,st,m,dp);
-		return dp[i]=max(pick,notpick);
-	}
+#define ll long long 
+     ll fs(ll i,vector<vector<int>>& rides,vector<ll>&start,vector<ll>&dp)
+    {
+        
+        if(i>=rides.size()) return 0;
+        if(dp[i]!=-1) return dp[i];
+        ll x=lower_bound(start.begin(),start.end(),rides[i][1])-start.begin();
+        ll pc=rides[i][2]+rides[i][1]-rides[i][0]+fs(x,rides,start,dp);
+        ll np=fs(i+1,rides,start,dp);
+        return dp[i]=max(pc,np);
+    }
+   long long maxTaxiEarnings(int n, vector<vector<int>>& rides) {
+        vector<ll>dp(rides.size(),-1);
+        sort(rides.begin(),rides.end());
+        vector<ll>st;
+        for(int  i=0;i<rides.size();i++){st.push_back(rides[i][0]);}
+        return fs(0,rides,st,dp);
 
-	long long maxTaxiEarnings(int n,vector<vector<int>>& r) {
-		int m=r.size();
-		sort(r.begin(),r.end());
-		vector<int> st;
-		for(int i=0;i<m;i++) st.push_back(r[i][0]);
-		vector<long long> dp(m,-1);
-		return f(0,r,st,m,dp);
-	}
+    }
+
 };

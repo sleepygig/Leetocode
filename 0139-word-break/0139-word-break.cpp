@@ -1,23 +1,33 @@
 class Solution {
 public:
-    bool wordBreak(string s, vector<string>& wordDict) {
-        unordered_set<string> st(wordDict.begin(), wordDict.end());
-        int n = s.size();
-        vector<bool> dp(n + 1, false);
-        dp[0] = true;
+    bool fs(int i,int j,set<string>&st,string s,vector<vector<int>>&dp)
+    {
+        if(j==s.size() and i==s.size()) return true;
+         if(j==s.size() and i!=s.size()) return false;
+         if(dp[i][j]!=-1) return dp[i][j];
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (dp[j]) {
-                    string word = s.substr(j, i - j);
-                    if (st.find(word) != st.end()) {
-                        dp[i] = true;
-                        break;
-                    }
-                }
-            }
-        }
+           string tp=s.substr(i,j-i+1);
+           bool a=false;
+           if(st.find(tp)!=st.end())
+           {
+            bool x=fs(j+1,j+1,st,s,dp);
+            bool y=fs(i,j+1,st,s,dp);
+            dp[i][j]= x or y;
+           }
+           else 
+           {
+             dp[i][j]=fs(i,j+1,st,s,dp);
+           }
+           return dp[i][j];
+    }
+ 
+      bool wordBreak(string s, vector<string>& wordDict) {
+       set<string>st;
+       for(auto c:wordDict)st.insert(c);
+       int n=s.size();
+       vector<vector<int>>dp(n,vector<int>(n,-1));
+       return fs(0,0,st,s,dp);
 
-        return dp[n];
+       
     }
 };

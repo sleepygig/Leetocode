@@ -1,40 +1,41 @@
 class Solution {
 public:
-int fs(unordered_map<int,char>&mp,string s,int i,int j,vector<vector<int>>&dp)
-    {
-        if (i==s.size() and j==s.size()) return 1;
-        if (i!=s.size() and j==s.size()) return 0;
-        if(dp[i][j]!=-1) return dp[i][j];
-        string t=s.substr(i,j-i+1);
-        int a;
-        stringstream(t) >> a;
-        if(mp.find(a)!=mp.end()  and t[0]!='0')
-        {
-            return dp[i][j]=fs(mp,s,j+1,j+1,dp)+fs(mp,s,i,j+1,dp);
-        }
-        else if(t[0]=='0' or a>=27)
-        {
-
-            return 0;
-        }
-
-        else 
-        {
-
-        return dp[i][j]=fs(mp,s,i,j+1,dp);
-        }
-        return 0;
-    }
-   int numDecodings(string s) {
+int numDecodings(string s) {
     unordered_map<int ,char>mp;
-    if(s[0]=='0') return 0;
+
     for(char i='a';i<='z';i++)
         {
             mp[i-96]=i;
         }
-          vector<vector<int>>dp(s.size()+1,vector<int>(s.size()+1,-1));
-        return fs(mp,s,0,0,dp);
-      
-     
+           int n=s.size();
+          vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+
+       
+          dp[n][n]=1;
+          for(int j=n-1;j>=0;j--)
+          {
+              for(int i=0;i<=j;i++)
+              {
+                  string t=s.substr(i,j-i+1);
+                    int a;
+                   stringstream(t) >> a;
+                   if(mp.find(a)!=mp.end())
+                   {
+                    dp[i][j]=dp[j+1][j+1] +dp[i][j+1];
+                   }
+                    else if(t[0]=='0' or a>=27)
+                    {
+                        continue;
+                    }
+                   else
+                   {
+                    dp[i][j]=dp[i][j+1];
+                   }  
+          }
     }
+  
+    return dp[0][0];
+    
+   
+   }
 };

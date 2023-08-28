@@ -12,7 +12,7 @@ int fs(unordered_map<int,char>&mp,string s,int i,int j,vector<vector<int>>&dp)
         {
             return dp[i][j]=fs(mp,s,j+1,j+1,dp)+fs(mp,s,i,j+1,dp);
         }
-        else if(t[0]=='0')
+        else if(t[0]=='0' or a>=27)
         {
 
             return 0;
